@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cyvera_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cyvera}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cyvera_secret_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-cyvera_db}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cyvera -d cyvera_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: cyvera_redis
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  zap:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    container_name: cyvera_zap
+    restart: unless-stopped
+    command: zap.sh -daemon -host 0.0.0.0 -port 8080 -config api.key=${ZAP_API_KEY:-cyvera-zap-internal-api-key} -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
+    # Internal network only — NOT exposed to the public internet
+    networks:
+      - default
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cyvera_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://cyvera:cyvera_secret_pw@postgres:5432/cyvera_db
+      - REDIS_URL=redis://redis:6379/0
+      - ZAP_BASE_URL=http://zap:8080
+      - ZAP_API_KEY=${ZAP_API_KEY:-cyvera-zap-internal-api-key}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - SECRET_KEY=${SECRET_KEY:-cyvera-super-secret-security-scanner-jwt-key-change-in-production-32bytes}
+      - ALLOW_LOCAL_TARGETS=True
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      zap:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cyvera_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  vulnerable_app:
+    build:
+      context: ./vulnerable-app
+      dockerfile: Dockerfile
+    container_name: cyvera_vulnerable_target
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  default:
+    name: cyvera_network
