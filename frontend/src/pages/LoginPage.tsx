@@ -96,15 +96,15 @@ export const LoginPage: React.FC = () => {
               <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
                 Username
               </label>
-              <div className="relative">
-                <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+              <div className="relative flex items-center">
+                <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="secops_analyst"
-                  className="cyber-input w-full pl-10 text-sm"
+                  className="cyber-input w-full pl-11 text-sm"
                 />
               </div>
             </div>
@@ -114,15 +114,15 @@ export const LoginPage: React.FC = () => {
             <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
               {isRegister ? "Email Address" : "Email or Username"}
             </label>
-            <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+            <div className="relative flex items-center">
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type={isRegister ? "email" : "text"}
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="analyst@cyvera.io"
-                className="cyber-input w-full pl-10 text-sm"
+                className="cyber-input w-full pl-11 text-sm"
               />
             </div>
           </div>
@@ -131,15 +131,15 @@ export const LoginPage: React.FC = () => {
             <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
               Password
             </label>
-            <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+            <div className="relative flex items-center">
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="cyber-input w-full pl-10 text-sm font-mono"
+                className="cyber-input w-full pl-11 text-sm font-mono"
               />
             </div>
           </div>

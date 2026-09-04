@@ -59,8 +59,8 @@ export const VulnerabilitiesPage: React.FC = () => {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+        <div className="relative w-full sm:w-80 flex items-center">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             placeholder="Search finding, OWASP, CWE or URL..."
