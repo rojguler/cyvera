@@ -28,12 +28,12 @@ export const App: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#050811] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-500/50 flex items-center justify-center text-cyan-400 shadow-glow-cyan animate-pulse">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-950 via-purple-900 to-indigo-950 border border-purple-500/60 flex items-center justify-center text-purple-300 shadow-glow-purple animate-pulse">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-cyan-400 animate-spin" />
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest font-mono">
+            <Activity className="w-4 h-4 text-purple-400 animate-spin" />
+            <p className="text-xs font-bold text-purple-300/80 uppercase tracking-widest font-mono">
               Initializing Cyvera SecOps Console...
             </p>
           </div>

@@ -295,7 +295,7 @@ export const NewScanPage: React.FC<NewScanPageProps> = ({ initialTargetId, onSca
           <button
             type="submit"
             disabled={!selectedTargetId || !authorizedConsent}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-cyan flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99]"
+            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-500 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-purple flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99]"
           >
             <Play className="w-4 h-4 fill-white" />
             <span>Execute Security Assessment</span>

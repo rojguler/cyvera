@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldAlert, Lock, Mail, User as UserIcon, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { ShieldAlert, Lock, Mail, User as UserIcon, ArrowRight, Sparkles } from 'lucide-react';
 import api from '../api/client';
 import { useAuthStore } from '../store/authStore';
 import { AuthResponse, User } from '../types';
@@ -62,23 +62,23 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#050811] p-4 sm:p-6 relative overflow-hidden cyber-bg-grid">
-      {/* Background Decorative Ambient Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Decorative Ambient Purple Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="cyber-card max-w-md w-full p-6 sm:p-8 relative z-10 border-cyan-500/40 shadow-2xl shadow-cyan-950/40 animate-scale-in">
+      <div className="cyber-card max-w-md w-full p-6 sm:p-8 relative z-10 border-purple-500/40 shadow-2xl shadow-purple-950/50 animate-scale-in">
         {/* Logo & Title */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-950 to-slate-900 border border-cyan-500/60 flex items-center justify-center text-cyan-400 mx-auto mb-3.5 shadow-glow-cyan">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-950 via-purple-900 to-indigo-950 border border-purple-500/60 flex items-center justify-center text-purple-300 mx-auto mb-3.5 shadow-glow-purple">
             <ShieldAlert className="w-7 h-7" />
           </div>
           <div className="flex items-center justify-center gap-1.5">
             <h1 className="text-2xl font-black tracking-wider text-white">CYVERA</h1>
-            <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-mono">
+            <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 font-mono">
               AI SecOps
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 uppercase font-semibold tracking-widest">
+          <p className="text-xs text-purple-200/70 mt-1 uppercase font-semibold tracking-widest">
             AI-Powered Web Security Scanner
           </p>
         </div>
@@ -97,7 +97,7 @@ export const LoginPage: React.FC = () => {
                 Username
               </label>
               <div className="relative flex items-center">
-                <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <UserIcon className="w-4 h-4 text-purple-400/80 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   required
@@ -115,7 +115,7 @@ export const LoginPage: React.FC = () => {
               {isRegister ? "Email Address" : "Email or Username"}
             </label>
             <div className="relative flex items-center">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Mail className="w-4 h-4 text-purple-400/80 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type={isRegister ? "email" : "text"}
                 required
@@ -132,7 +132,7 @@ export const LoginPage: React.FC = () => {
               Password
             </label>
             <div className="relative flex items-center">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Lock className="w-4 h-4 text-purple-400/80 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="password"
                 required
@@ -147,7 +147,7 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-cyan flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.99]"
+            className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-500 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-purple flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.99]"
           >
             <span>{loading ? "Authenticating..." : isRegister ? "Create SecOps Account" : "Access Scanner Console"}</span>
             <ArrowRight className="w-4 h-4" />
@@ -155,13 +155,13 @@ export const LoginPage: React.FC = () => {
         </form>
 
         {/* Demo Credentials Helper */}
-        <div className="mt-6 pt-5 border-t border-slate-800/80 text-center">
+        <div className="mt-6 pt-5 border-t border-purple-950/60 text-center">
           <button
             type="button"
             onClick={handleFillDemo}
-            className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-semibold py-1.5 px-3 rounded-lg border border-cyan-500/30 bg-cyan-950/40 hover:bg-cyan-950/70 transition-all shadow-sm"
+            className="inline-flex items-center gap-1.5 text-xs text-purple-300 hover:text-white font-semibold py-1.5 px-3.5 rounded-lg border border-purple-500/40 bg-purple-950/50 hover:bg-purple-900/70 transition-all shadow-glow-purple"
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
             <span>Fill Demo Credentials (1-Click)</span>
           </button>
 
@@ -170,7 +170,7 @@ export const LoginPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsRegister(!isRegister)}
-              className="text-cyan-400 hover:underline font-bold ml-1"
+              className="text-purple-400 hover:text-purple-300 hover:underline font-bold ml-1"
             >
               {isRegister ? "Sign In" : "Register"}
             </button>

@@ -99,7 +99,7 @@ export const TargetsPage: React.FC<TargetsPageProps> = ({ onStartScan }) => {
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-cyan shrink-0 active:scale-95"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-500 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-purple shrink-0 active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add Authorized Target</span>
@@ -123,7 +123,7 @@ export const TargetsPage: React.FC<TargetsPageProps> = ({ onStartScan }) => {
           </p>
           <button
             onClick={() => setShowModal(true)}
-            className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider shadow-glow-cyan transition-all"
+            className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-500 text-white text-xs font-bold uppercase tracking-wider shadow-glow-purple transition-all"
           >
             Add First Target
           </button>
@@ -285,7 +285,7 @@ export const TargetsPage: React.FC<TargetsPageProps> = ({ onStartScan }) => {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-xs font-bold text-white uppercase tracking-wider transition-all shadow-glow-cyan disabled:opacity-50"
+                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-500 text-xs font-bold text-white uppercase tracking-wider transition-all shadow-glow-purple disabled:opacity-50"
                   >
                     {submitting ? "Validating..." : "Save Target"}
                   </button>

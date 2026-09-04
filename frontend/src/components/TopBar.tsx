@@ -40,7 +40,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   };
 
   return (
-    <header className="h-16 bg-cyber-900/80 backdrop-blur-md border-b border-slate-800/80 flex items-center justify-between px-4 sm:px-8 z-20 shrink-0 select-none">
+    <header className="h-16 bg-cyber-900/80 backdrop-blur-md border-b border-purple-950/60 flex items-center justify-between px-4 sm:px-8 z-20 shrink-0 select-none">
       <div className="flex items-center gap-3">
         {/* Mobile menu hamburger button */}
         {onToggleMobileMenu && (
@@ -62,7 +62,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
         {/* Active Scan Indicator */}
         {activeScanCount > 0 && (
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/50 border border-cyan-500/40 text-cyan-300 text-xs font-semibold shadow-glow-cyan animate-pulse">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-semibold shadow-glow-purple animate-pulse">
             <Activity className="w-3.5 h-3.5" />
             <span>{activeScanCount} Scan in Progress</span>
           </div>
@@ -74,7 +74,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         {isInstallable && (
           <button
             onClick={handleInstallClick}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-950/60 hover:bg-indigo-900/80 border border-indigo-500/40 text-indigo-300 text-xs font-bold transition-all shadow-[0_0_14px_-2px_rgba(99,102,241,0.35)]"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-950/70 hover:bg-purple-900/90 border border-purple-500/40 text-purple-300 text-xs font-bold transition-all shadow-glow-purple"
             title="Install Cyvera PWA to your device"
           >
             <DownloadCloud className="w-3.5 h-3.5" />
@@ -85,7 +85,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* Quick Launch Scan Button */}
         <button
           onClick={onStartNewScan}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-cyan active:scale-95"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-500 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-purple active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>New Target Scan</span>
