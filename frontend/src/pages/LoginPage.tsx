@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldAlert, Lock, Mail, User as UserIcon, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ShieldAlert, Lock, Mail, User as UserIcon, ArrowRight, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 import api from '../api/client';
 import { useAuthStore } from '../store/authStore';
 import { AuthResponse, User } from '../types';
@@ -61,25 +61,30 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cyber-950 p-6 relative overflow-hidden">
-      {/* Background Decorative Grids */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2d4a15_1px,transparent_1px),linear-gradient(to_bottom,#1f2d4a15_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center bg-[#050811] p-4 sm:p-6 relative overflow-hidden cyber-bg-grid">
+      {/* Background Decorative Ambient Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="cyber-card max-w-md w-full p-8 relative z-10 border-cyan-500/30 shadow-2xl">
+      <div className="cyber-card max-w-md w-full p-6 sm:p-8 relative z-10 border-cyan-500/40 shadow-2xl shadow-cyan-950/40 animate-scale-in">
         {/* Logo & Title */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-cyan-950 border border-cyan-500/50 flex items-center justify-center text-cyan-400 mx-auto mb-4 shadow-glow-cyan">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-950 to-slate-900 border border-cyan-500/60 flex items-center justify-center text-cyan-400 mx-auto mb-3.5 shadow-glow-cyan">
             <ShieldAlert className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-black tracking-wider text-white">CYVERA</h1>
+          <div className="flex items-center justify-center gap-1.5">
+            <h1 className="text-2xl font-black tracking-wider text-white">CYVERA</h1>
+            <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-mono">
+              AI SecOps
+            </span>
+          </div>
           <p className="text-xs text-slate-400 mt-1 uppercase font-semibold tracking-widest">
             AI-Powered Web Security Scanner
           </p>
         </div>
 
         {error && (
-          <div className="mb-5 p-3 rounded-lg bg-red-950/50 border border-red-500/40 text-red-300 text-xs font-medium">
+          <div className="mb-5 p-3.5 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs font-medium animate-shake">
             {error}
           </div>
         )}
@@ -92,7 +97,7 @@ export const LoginPage: React.FC = () => {
                 Username
               </label>
               <div className="relative">
-                <UserIcon className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+                <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                 <input
                   type="text"
                   required
@@ -110,7 +115,7 @@ export const LoginPage: React.FC = () => {
               {isRegister ? "Email Address" : "Email or Username"}
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
               <input
                 type={isRegister ? "email" : "text"}
                 required
@@ -127,14 +132,14 @@ export const LoginPage: React.FC = () => {
               Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="cyber-input w-full pl-10 text-sm"
+                className="cyber-input w-full pl-10 text-sm font-mono"
               />
             </div>
           </div>
@@ -142,30 +147,30 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 py-3 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-cyan flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-glow-cyan flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.99]"
           >
-            <span>{loading ? "Authenticating..." : isRegister ? "Create SecOps Account" : "Access Scanner"}</span>
+            <span>{loading ? "Authenticating..." : isRegister ? "Create SecOps Account" : "Access Scanner Console"}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
         {/* Demo Credentials Helper */}
-        <div className="mt-6 pt-5 border-t border-slate-800 text-center">
+        <div className="mt-6 pt-5 border-t border-slate-800/80 text-center">
           <button
             type="button"
             onClick={handleFillDemo}
-            className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium py-1 px-2.5 rounded border border-cyan-500/20 bg-cyan-950/30 hover:bg-cyan-950/60 transition-all"
+            className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-semibold py-1.5 px-3 rounded-lg border border-cyan-500/30 bg-cyan-950/40 hover:bg-cyan-950/70 transition-all shadow-sm"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Fill Demo Credentials (1-Click)</span>
           </button>
 
-          <p className="text-xs text-slate-500 mt-4">
+          <p className="text-xs text-slate-400 mt-4">
             {isRegister ? "Already have an account?" : "Need a new security workspace?"}{' '}
             <button
               type="button"
               onClick={() => setIsRegister(!isRegister)}
-              className="text-cyan-400 hover:underline font-semibold ml-1"
+              className="text-cyan-400 hover:underline font-bold ml-1"
             >
               {isRegister ? "Sign In" : "Register"}
             </button>

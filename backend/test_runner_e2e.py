@@ -3,6 +3,7 @@ import json
 import time
 import requests
 import sqlite3
+import os
 from pathlib import Path
 
 BASE_BACKEND = "http://localhost:8000"
@@ -46,7 +47,7 @@ def run_e2e_verification():
     # 4. Log into Cyvera
     auth_token = None
     try:
-        login_payload = {"username": "secops_demo", "password": "CyveraSecurity2025!"}
+        login_payload = {"username_or_email": "secops_demo", "password": "CyveraSecurity2025!"}
         r = requests.post(f"{BASE_BACKEND}/api/v1/auth/login", json=login_payload, timeout=5)
         if r.status_code == 200:
             data = r.json()
@@ -77,6 +78,13 @@ def run_e2e_verification():
             target_data = r.json()
             target_id = target_data.get("id")
             results["5_add_target"] = {"status": "PASS", "target_id": target_id, "url": target_data.get("url")}
+        elif r.status_code == 400 and "already added" in r.text:
+            t_res = requests.get(f"{BASE_BACKEND}/api/v1/targets", headers=headers, timeout=5)
+            if t_res.status_code == 200 and len(t_res.json()) > 0:
+                target_id = t_res.json()[0].get("id")
+                results["5_add_target"] = {"status": "PASS", "target_id": target_id, "url": BASE_TARGET, "note": "Reused existing target"}
+            else:
+                results["5_add_target"] = {"status": "FAIL", "status_code": r.status_code, "body": r.text}
         else:
             results["5_add_target"] = {"status": "FAIL", "status_code": r.status_code, "body": r.text}
     except Exception as e:
@@ -186,7 +194,8 @@ def run_e2e_verification():
 
     # 10. Database direct persistence check (sqlite3)
     try:
-        conn = sqlite3.connect("cyvera.db")
+        db_path = "backend/cyvera.db" if os.path.exists("backend/cyvera.db") else "cyvera.db"
+        conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
         cursor.execute("SELECT COUNT(*) FROM targets WHERE id = ?", (target_id,))

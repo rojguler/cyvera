@@ -43,12 +43,12 @@ export const VulnerabilitiesPage: React.FC = () => {
   );
 
   return (
-    <div className="p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto animate-fade-in">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
-            <Bug className="w-6 h-6 text-red-400" />
+          <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+            <Bug className="w-6 h-6 text-rose-400" />
             <span>Vulnerability Explorer</span>
           </h1>
           <p className="text-xs text-slate-400 mt-1">
@@ -63,25 +63,25 @@ export const VulnerabilitiesPage: React.FC = () => {
           <Search className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
           <input
             type="text"
-            placeholder="Search by vulnerability name, CWE or URL..."
+            placeholder="Search finding, OWASP, CWE or URL..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="cyber-input w-full pl-9 text-xs"
           />
         </div>
 
-        <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto">
+        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
           {['all', 'critical', 'high', 'medium', 'low', 'informational'].map((sev) => (
             <button
               key={sev}
               onClick={() => setSelectedSev(sev)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all shrink-0 ${
                 selectedSev === sev
-                  ? 'bg-cyan-600 text-white shadow-glow-cyan'
-                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
+                  ? 'bg-gradient-to-r from-cyan-600 to-cyan-500 text-white shadow-glow-cyan'
+                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
               }`}
             >
-              {sev}
+              {sev === 'informational' ? 'info' : sev}
             </button>
           ))}
         </div>
@@ -89,70 +89,72 @@ export const VulnerabilitiesPage: React.FC = () => {
 
       {/* Vulnerabilities Table */}
       {loading ? (
-        <div className="py-16 text-center text-xs text-slate-400 flex flex-col items-center gap-3">
+        <div className="py-20 text-center text-xs text-slate-400 flex flex-col items-center gap-3">
           <Activity className="w-6 h-6 text-cyan-400 animate-spin" />
-          <span>Querying Security Database...</span>
+          <span className="font-mono">Querying Security Telemetry Database...</span>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="cyber-card p-12 text-center text-xs text-slate-400">
+        <div className="cyber-card p-12 text-center text-xs text-slate-500">
           No vulnerabilities found matching your filter criteria.
         </div>
       ) : (
         <div className="cyber-card overflow-hidden">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-slate-800 text-slate-400 font-semibold uppercase tracking-wider bg-slate-900/60">
-                <th className="py-3.5 px-4">Severity</th>
-                <th className="py-3.5 px-4">Alert Name</th>
-                <th className="py-3.5 px-4">OWASP / CWE</th>
-                <th className="py-3.5 px-4">Affected URL</th>
-                <th className="py-3.5 px-4 text-right">Remediation</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800/60">
-              {filtered.map((finding) => (
-                <tr key={finding.id} className="hover:bg-slate-850/40 transition-colors">
-                  <td className="py-4 px-4">
-                    <SeverityBadge severity={finding.severity} size="sm" />
-                  </td>
-                  <td className="py-4 px-4 font-bold text-white">
-                    <div>{finding.vulnerability?.name || "Security Finding"}</div>
-                    {finding.parameter && (
-                      <span className="text-[11px] text-cyan-400 font-mono font-normal">
-                        Param: {finding.parameter}
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-4 px-4 text-slate-300">
-                    <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[11px]">
-                      {finding.vulnerability?.owasp_category || "A05:2021"}
-                    </span>
-                    {finding.vulnerability?.cwe_id && (
-                      <span className="ml-1.5 text-[10px] text-slate-500 font-mono">
-                        CWE-{finding.vulnerability.cwe_id}
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-4 px-4 font-mono text-slate-400 truncate max-w-xs text-[11px]">
-                    {finding.affected_url}
-                  </td>
-                  <td className="py-4 px-4 text-right">
-                    <button
-                      onClick={() => setSelectedFinding(finding)}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold transition-all ${
-                        finding.ai_analysis
-                          ? 'bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 shadow-glow-cyan'
-                          : 'bg-slate-850 hover:bg-slate-800 border border-slate-700 text-slate-300'
-                      }`}
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>{finding.ai_analysis ? "AI Analysis" : "Generate AI"}</span>
-                    </button>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-800 text-slate-400 font-semibold uppercase tracking-wider bg-slate-900/60">
+                  <th className="py-3.5 px-4">Severity</th>
+                  <th className="py-3.5 px-4">Alert Name</th>
+                  <th className="py-3.5 px-4">OWASP / CWE</th>
+                  <th className="py-3.5 px-4">Affected URL</th>
+                  <th className="py-3.5 px-4 text-right">Remediation</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-slate-800/60 font-sans">
+                {filtered.map((finding) => (
+                  <tr key={finding.id} className="hover:bg-slate-850/50 transition-colors">
+                    <td className="py-4 px-4">
+                      <SeverityBadge severity={finding.severity} size="sm" />
+                    </td>
+                    <td className="py-4 px-4 font-bold text-white">
+                      <div>{finding.vulnerability?.name || "Security Finding"}</div>
+                      {finding.parameter && (
+                        <span className="text-[11px] text-cyan-400 font-mono font-normal">
+                          Param: {finding.parameter}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-4 px-4 text-slate-300">
+                      <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[11px] font-mono">
+                        {finding.vulnerability?.owasp_category || "A05:2021"}
+                      </span>
+                      {finding.vulnerability?.cwe_id && (
+                        <span className="ml-1.5 text-[10px] text-slate-400 font-mono">
+                          CWE-{finding.vulnerability.cwe_id}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-4 px-4 font-mono text-slate-400 truncate max-w-xs text-[11px]">
+                      {finding.affected_url}
+                    </td>
+                    <td className="py-4 px-4 text-right">
+                      <button
+                        onClick={() => setSelectedFinding(finding)}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                          finding.ai_analysis
+                            ? 'bg-gradient-to-r from-cyan-950/90 to-slate-900 border border-cyan-500/50 text-cyan-300 shadow-glow-cyan'
+                            : 'bg-slate-900 hover:bg-slate-850 border border-slate-700/80 text-slate-300 hover:text-white'
+                        }`}
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>{finding.ai_analysis ? "AI Analysis" : "Generate AI"}</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 

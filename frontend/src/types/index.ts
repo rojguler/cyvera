@@ -1,3 +1,5 @@
+export type VulnerabilitySeverity = 'critical' | 'high' | 'medium' | 'low' | 'informational' | 'info';
+
 export interface User {
   id: string;
   email: string;
@@ -66,7 +68,7 @@ export interface ScanFinding {
   scan_id: string;
   vulnerability_id: string;
   vulnerability?: Vulnerability;
-  severity: 'critical' | 'high' | 'medium' | 'low' | 'informational';
+  severity: VulnerabilitySeverity;
   risk_score?: number;
   confidence?: string;
   affected_url: string;

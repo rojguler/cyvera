@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 
+// Register PWA Service Worker
+if ('serviceWorker' in navigator && process.env.NODE_ENV !== 'test') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((registration) => {
+        console.log('Cyvera PWA ServiceWorker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.warn('Cyvera ServiceWorker registration failed:', error);
+      });
+  });
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
