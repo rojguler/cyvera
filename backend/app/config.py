@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     
     # Database
-    DATABASE_URL: str = "sqlite:///./cyvera.db"
+    DATABASE_URL: str = "sqlite:////tmp/cyvera.db" if os.getenv("VERCEL") else "sqlite:///./cyvera.db"
     
     # Redis & Celery
     REDIS_URL: str = "redis://localhost:6379/0"
