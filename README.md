@@ -1,21 +1,27 @@
 # Cyvera — AI-Powered Web Security Scanner
 
 <p align="center">
+  <a href="https://cyvera-chi.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/Vercel-Live_Demo-black?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Live Demo" />
+  </a>
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
   <img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/OWASP_ZAP-231F20?style=for-the-badge&logo=owasp&logoColor=white" alt="OWASP ZAP" />
   <img src="https://img.shields.io/badge/Google_GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google GenAI" />
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/PWA-Ready-9333EA?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA Ready" />
   <img src="https://img.shields.io/badge/Python_3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
 </p>
+
+🌐 **Live Web Application & PWA:** [https://cyvera-chi.vercel.app](https://cyvera-chi.vercel.app)
 
 **Cyvera** is an automated web vulnerability management and security assessment platform. It bridges the gap between raw DAST (Dynamic Application Security Testing) scanners and developer remediation by combining automated vulnerability discovery, **OWASP Top 10 (2021)** classification, **deterministic security scoring (0–100)**, and **Google Gemini 2.5 AI** for contextual root-cause analysis and framework-specific patch code.
 
 ---
 
 ## Table of Contents
+- [Live Demo & Quick Access](#live-demo--quick-access)
 - [Key Features](#key-features)
 - [Architecture & Data Flow](#architecture--data-flow)
 - [Technology Stack](#technology-stack)
@@ -34,6 +40,16 @@
 - [Screenshots & UI Showcase](#screenshots--ui-showcase)
 - [Verification & Known Limitations](#verification--known-limitations)
 - [Security & Authorized-Use Policy](#security--authorized-use-policy)
+
+## Live Demo & Quick Access
+
+Cyvera is deployed and live on Vercel with full Progressive Web App (PWA) installation support:
+
+- 🚀 **Live Production Console:** [https://cyvera-chi.vercel.app](https://cyvera-chi.vercel.app)
+- 📱 **PWA Installation:** Open in Chrome / Safari / Edge and click **"Install" / "Yükle"** to add Cyvera to your desktop or mobile home screen.
+- ⚡ **1-Click Demo Evaluation:**
+  - Click **"Fill Demo Credentials (1-Click)"** on the login screen.
+  - Click **"Access Scanner Console"** to instantly explore live dashboards, interactive graphs, and Gemini AI vulnerability remediation modals.
 
 ---
 
