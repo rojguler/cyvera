@@ -70,15 +70,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register routers with prefix /api/v1
-app.include_router(auth.router, prefix="/api/v1")
-app.include_router(targets.router, prefix="/api/v1")
-app.include_router(scans.router, prefix="/api/v1")
-app.include_router(vulnerabilities.router, prefix="/api/v1")
-app.include_router(ai.router, prefix="/api/v1")
-app.include_router(reports.router, prefix="/api/v1")
-app.include_router(dashboard.router, prefix="/api/v1")
+# Register routers with both /api/v1 and /v1 prefixes for Vercel routing compatibility
+for prefix in ["/api/v1", "/v1"]:
+    app.include_router(auth.router, prefix=prefix)
+    app.include_router(targets.router, prefix=prefix)
+    app.include_router(scans.router, prefix=prefix)
+    app.include_router(vulnerabilities.router, prefix=prefix)
+    app.include_router(ai.router, prefix=prefix)
+    app.include_router(reports.router, prefix=prefix)
+    app.include_router(dashboard.router, prefix=prefix)
 
+@app.get("/health")
 @app.get("/api/health")
 def health_check():
     return {
