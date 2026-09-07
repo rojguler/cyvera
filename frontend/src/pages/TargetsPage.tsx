@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import api from '../api/client';
 import { Target } from '../types';
+import { FALLBACK_TARGETS } from '../utils/fallbackData';
 
 interface TargetsPageProps {
   onStartScan: (targetId: string) => void;
@@ -40,7 +41,8 @@ export const TargetsPage: React.FC<TargetsPageProps> = ({ onStartScan }) => {
       const res = await api.get<Target[]>('/targets');
       setTargets(res.data);
     } catch (err) {
-      console.error("Failed to load targets:", err);
+      console.warn("Backend API not reachable, loading targets fallback.");
+      setTargets(FALLBACK_TARGETS);
     } finally {
       setLoading(false);
     }

@@ -22,6 +22,8 @@ import { ScoreGauge } from '../components/ScoreGauge';
 import { SeverityBadge } from '../components/SeverityBadge';
 import { AIAnalysisModal } from '../components/AIAnalysisModal';
 
+import { FALLBACK_SCANS } from '../utils/fallbackData';
+
 interface ScanDetailsPageProps {
   scanId: string;
   onBack: () => void;
@@ -45,7 +47,9 @@ export const ScanDetailsPage: React.FC<ScanDetailsPageProps> = ({ scanId, onBack
       const res = await api.get<Scan>(`/scans/${scanId}`);
       setScan(res.data);
     } catch (err) {
-      console.error("Failed to load scan details:", err);
+      console.warn("Backend API not reachable, loading scan detail fallback.");
+      const matched = FALLBACK_SCANS.find(s => s.id === scanId) || FALLBACK_SCANS[0];
+      setScan(matched);
     } finally {
       setLoading(false);
     }

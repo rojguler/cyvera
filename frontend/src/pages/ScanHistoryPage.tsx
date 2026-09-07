@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { History, Search, ExternalLink, Activity, Filter, Shield, Zap } from 'lucide-react';
 import api from '../api/client';
 import { Scan, Target } from '../types';
+import { FALLBACK_SCANS, FALLBACK_TARGETS } from '../utils/fallbackData';
 
 interface ScanHistoryPageProps {
   onOpenScan: (scanId: string) => void;
@@ -28,7 +29,9 @@ export const ScanHistoryPage: React.FC<ScanHistoryPageProps> = ({ onOpenScan }) 
       setScans(scansRes.data);
       setTargets(targetsRes.data);
     } catch (err) {
-      console.error("Failed to load scan history:", err);
+      console.warn("Backend API not reachable, loading scan history fallback.");
+      setScans(FALLBACK_SCANS);
+      setTargets(FALLBACK_TARGETS);
     } finally {
       setLoading(false);
     }

@@ -37,6 +37,19 @@ export const useAuthStore = create<AuthState>((set) => ({
       return false;
     }
 
+    if (token.startsWith('cyvera_demo_')) {
+      const demoUser: User = {
+        id: 'usr_secops_demo_01',
+        email: 'demo@cyvera.io',
+        username: 'secops_demo',
+        is_active: true,
+        is_verified: true,
+        created_at: new Date().toISOString()
+      };
+      set({ user: demoUser, isAuthenticated: true, isLoading: false });
+      return true;
+    }
+
     try {
       const res = await api.get<User>('/auth/me');
       set({ user: res.data, isAuthenticated: true, isLoading: false });

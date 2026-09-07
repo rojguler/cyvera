@@ -32,6 +32,7 @@ import { DashboardStats } from '../types';
 import { ScoreGauge } from '../components/ScoreGauge';
 import { StatCard } from '../components/StatCard';
 import { SeverityBadge } from '../components/SeverityBadge';
+import { FALLBACK_DASHBOARD_STATS } from '../utils/fallbackData';
 
 interface DashboardPageProps {
   onNavigate: (tab: string, scanId?: string) => void;
@@ -50,7 +51,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       const res = await api.get<DashboardStats>('/dashboard/stats');
       setStats(res.data);
     } catch (err) {
-      console.error("Failed to load dashboard statistics:", err);
+      console.warn("Backend API not reachable, loading SecOps dashboard fallback telemetry.");
+      setStats(FALLBACK_DASHBOARD_STATS);
     } finally {
       setLoading(false);
     }

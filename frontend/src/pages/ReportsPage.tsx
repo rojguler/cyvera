@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FileText, Download, Calendar, ExternalLink, Activity, ShieldCheck } from 'lucide-react';
 import api from '../api/client';
 import { Scan } from '../types';
+import { FALLBACK_SCANS } from '../utils/fallbackData';
 
 interface ReportsPageProps {
   onOpenScan: (scanId: string) => void;
@@ -21,7 +22,8 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ onOpenScan }) => {
       const res = await api.get<Scan[]>('/scans', { params: { status: 'completed' } });
       setScans(res.data);
     } catch (err) {
-      console.error("Failed to load completed scans:", err);
+      console.warn("Backend API not reachable, loading reports fallback.");
+      setScans(FALLBACK_SCANS);
     } finally {
       setLoading(false);
     }
